@@ -1,3 +1,10 @@
+"""
+Assignment: Stock Market Data Analysis
+Author: Alec Hoelscher 
+Date: 2/7/2025
+Description: Practice using an API to download stock information.
+"""
+
 import json
 import datetime
 from requests import get
@@ -63,6 +70,7 @@ def fetch_stock_data(ticker: str) -> dict:
 
 ticker_list = []
 
+#Getting ticker symbols from call in terminal
 for i in range(1, len(argv)):
     if len(argv) < 1:
         print("No ticker symbols detected!!!")
@@ -71,9 +79,10 @@ for i in range(1, len(argv)):
 
 data = []
 
+#Adding stock data for each ticker symbol to a list
 for i in range(0, len(ticker_list)):
      data.append(fetch_stock_data(ticker_list[i]))
 
-#./file_directory
+#Outputting result as a json file
 with open("stocks.json", "w") as outfile:
     json.dump(data, outfile, indent = 4)
