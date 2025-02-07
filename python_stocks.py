@@ -45,7 +45,7 @@ def get_medium(prices: list) -> float:
         avg = (sorted_prices[(length // 2) - 1] + sorted_prices[length // 2]) / 2
         return avg
 
-def process_data(prices: list) -> dict:
+def process_data(prices: list, ticker: str) -> dict:
     """Function to return a dictionary with formatted stock information from a list of closing prices"""
     data = {
         "min": min(prices),
@@ -58,27 +58,22 @@ def process_data(prices: list) -> dict:
 
 def fetch_stock_data(ticker: str) -> dict:
     """Helper function to execute other functions given a ticker symbol"""
-    data = process_data(format_prices(download_data(ticker)))
+    data = process_data(format_prices(download_data(ticker)), ticker)
     return data
 
-ticker = "AMZN"
-data = fetch_stock_data(ticker)
+ticker_list = []
+
+for i in range(1, len(argv)):
+    if len(argv) < 1:
+        print("No ticker symbols detected!!!")
+    else:
+        ticker_list.append(argv[i])
+
+data = []
+
+for i in range(0, len(ticker_list)):
+     data.append(fetch_stock_data(ticker_list[i]))
 
 #./file_directory
 with open("stocks.json", "w") as outfile:
-    json.dump(data, outfile)
-
-
-
-
-
-
-
-
-#for i in argv[]:
-    #check if theres anything in argv
-    #
-   # print(i)
-
-#lst = [0,1,2,3,4,5,6,7,8,9]
-#print(lst[1])
+    json.dump(data, outfile, indent = 4)
