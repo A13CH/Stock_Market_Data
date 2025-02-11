@@ -81,7 +81,7 @@ data = []
 
 #Adding stock data for each ticker symbol to a list
 for i in range(0, len(ticker_list)):
-     data.append(fetch_stock_data(ticker_list[i]))
+    data.append(fetch_stock_data(ticker_list[i]))
 
 #Outputting result as a json file
 with open("stocks.json", "w") as outfile:
